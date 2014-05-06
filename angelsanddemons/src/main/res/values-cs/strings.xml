@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Andělé &amp; Démoni</string>
     <string name="players">Hráčů: %1$d</string>
-    <string name="remaining_team_members">Zbývající místa v týmu:: %1$d</string>
+    <string name="remaining_team_members">Zbývající místa v týmu: %1$d</string>
     <string name="your_turn">Jsi na tahu %1$s!</string>
     <string name="header_round">Kolo %1$d</string>
     <string name="result_minority_won"><![CDATA[<font color="#FF1C1C">Démoni</font> vyhráli toto kolo.]]></string>
@@ -23,6 +23,7 @@
     <string name="next">Další</string>
     <string name="play">Hrát</string>
     <string name="action_help">\?</string>
+    <string name="game_over">Konec hry</string>
 
     <string name="rules"><![CDATA[
     <h3><font color="red">Goal</font></h3>
@@ -51,4 +52,5 @@
     <p>Game ends when one team has 3 points. Game can also end if <font color="#398EB6">Angels</font> fail to construct team 5 times in a row, in such event <font color="#FF1C1C">Demons</font> win.</p>
     ]]>
     </string>
+
 </resources>
