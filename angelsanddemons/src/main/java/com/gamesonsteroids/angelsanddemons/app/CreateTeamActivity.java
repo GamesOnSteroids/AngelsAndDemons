@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.gamesonsteroids.angelsanddemons.game.GameRules;
 import com.gamesonsteroids.angelsanddemons.game.GameSession;
 import com.gamesonsteroids.angelsanddemons.game.Player;
-import com.gamesonsteroids.angelsanddemons.game.Team;
+import com.gamesonsteroids.angelsanddemons.game.Round;
 import com.gamesonsteroids.angelsanddemons.widgets.ListAdapter;
 
 
@@ -26,7 +26,7 @@ public class CreateTeamActivity extends GameActivity {
         initHeader();
 
         TextView teamLeader = (TextView)findViewById(R.id.create_team_leader);
-        teamLeader.setText(getString(R.string.your_turn, GameSession.getCurrent().getCurrentTeam().getLeader().getName() ));
+        teamLeader.setText(getString(R.string.your_turn, GameSession.getCurrent().getCurrentRound().getLeader().getName() ));
 
         final Button createTeam = (Button)findViewById(R.id.create_team_button);
         createTeam.setEnabled(false);
@@ -42,7 +42,7 @@ public class CreateTeamActivity extends GameActivity {
 
                 final CheckBox playerCheckBox = ((CheckBox)view);
                 playerCheckBox.setOnCheckedChangeListener(null);
-                playerCheckBox.setChecked(GameSession.getCurrent().getCurrentTeam().getMembers().contains(item));
+                playerCheckBox.setChecked(GameSession.getCurrent().getCurrentRound().getTeam().contains(item));
                 playerCheckBox.setText(item.getName());
                 playerCheckBox.setTag(item);
                 playerCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -52,20 +52,21 @@ public class CreateTeamActivity extends GameActivity {
 
                         Player checkedPlayer = (Player)playerCheckBox.getTag();
 
-                        Team currentTeam = GameSession.getCurrent().getCurrentTeam();
+                        final Round currentRound = GameSession.getCurrent().getCurrentRound();
+
                         if (isChecked) {
-                            currentTeam.getMembers().add(checkedPlayer);
+                            currentRound.getTeam().add(checkedPlayer);
                         } else {
-                            currentTeam.getMembers().remove(checkedPlayer);
+                            currentRound.getTeam().remove(checkedPlayer);
                         }
 
                         checkTeamSize();
                     }
                 });
-                int maxTeamSize = GameRules.getTeamSize(GameSession.getCurrent().getRound(), GameSession.getCurrent().getPlayers().size());
+                int maxTeamSize = GameRules.getTeamSize(GameSession.getCurrent().getRounds().size(), GameSession.getCurrent().getPlayers().size());
 
-                Team currentTeam = GameSession.getCurrent().getCurrentTeam();
-                if (maxTeamSize == currentTeam.getMembers().size()) {
+
+                if (maxTeamSize == GameSession.getCurrent().getCurrentRound().getTeam().size()) {
                     if (!playerCheckBox.isChecked()) {
                         playerCheckBox.setEnabled(false);
                     }
@@ -86,16 +87,15 @@ public class CreateTeamActivity extends GameActivity {
         final TextView remainingTeamMembers = (TextView)findViewById(R.id.create_team_members);
 
 
-        int maxTeamSize = GameRules.getTeamSize(GameSession.getCurrent().getRound(), GameSession.getCurrent().getPlayers().size());
+        int maxTeamSize = GameRules.getTeamSize(GameSession.getCurrent().getRounds().size(), GameSession.getCurrent().getPlayers().size());
 
-        Team currentTeam = GameSession.getCurrent().getCurrentTeam();
 
-        remainingTeamMembers.setText(getString(R.string.remaining_team_members, maxTeamSize - currentTeam.getMembers().size()));
+        remainingTeamMembers.setText(getString(R.string.remaining_team_members, maxTeamSize - GameSession.getCurrent().getCurrentRound().getTeam().size()));
 
 
         final Button createTeam = (Button)findViewById(R.id.create_team_button);
 
-        if (maxTeamSize == currentTeam.getMembers().size()) {
+        if (maxTeamSize == GameSession.getCurrent().getCurrentRound().getTeam().size()) {
             for (int i=0; i< list.getChildCount(); ++i) {
                 CheckBox childCheckBox = (CheckBox)list.getChildAt(i);
 

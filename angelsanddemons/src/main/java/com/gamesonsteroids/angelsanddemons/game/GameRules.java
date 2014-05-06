@@ -28,51 +28,51 @@ public class GameRules {
         switch (playerCount) {
             case 5:
                 switch (round) {
-                    case 0: return 2;
-                    case 1: return 3;
-                    case 2: return 2;
-                    case 3: return 3;
+                    case 1: return 2;
+                    case 2: return 3;
+                    case 3: return 2;
                     case 4: return 3;
+                    case 5: return 3;
                 }
             case 6:
                 switch (round) {
-                    case 0: return 2;
-                    case 1: return 3;
-                    case 2: return 4;
-                    case 3: return 3;
-                    case 4: return 4;
+                    case 1: return 2;
+                    case 2: return 3;
+                    case 3: return 4;
+                    case 4: return 3;
+                    case 5: return 4;
                 }
             case 7:
                 switch (round) {
-                    case 0: return 2;
-                    case 1: return 3;
+                    case 1: return 2;
                     case 2: return 3;
-                    case 3: return 4;
+                    case 3: return 3;
                     case 4: return 4;
+                    case 5: return 4;
                 }
             case 8:
                 switch (round) {
-                    case 0: return 3;
-                    case 1: return 4;
+                    case 1: return 3;
                     case 2: return 4;
-                    case 3: return 5;
+                    case 3: return 4;
                     case 4: return 5;
+                    case 5: return 5;
                 }
             case 9:
                 switch (round) {
-                    case 0: return 3;
-                    case 1: return 4;
+                    case 1: return 3;
                     case 2: return 4;
-                    case 3: return 5;
+                    case 3: return 4;
                     case 4: return 5;
+                    case 5: return 5;
                 }
             case 10:
                 switch (round) {
-                    case 0: return 3;
-                    case 1: return 4;
+                    case 1: return 3;
                     case 2: return 4;
-                    case 3: return 5;
+                    case 3: return 4;
                     case 4: return 5;
+                    case 5: return 5;
                 }
         }
         throw new Error("No configuration for round: " + round + " playerCount: " + playerCount);
@@ -99,7 +99,7 @@ public class GameRules {
     }
 
     public static int getNecessaryMinorityVotes(int round, int playerCount) {
-        if (playerCount >= 7 && round == 3) {
+        if (playerCount >= 7 && round == 4) {
             return 2;
         }
         return 1;

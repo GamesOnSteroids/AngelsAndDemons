@@ -21,7 +21,7 @@ public abstract class GameActivity extends Activity{
 
     protected void initHeader() {
         TextView round = (TextView)findViewById(R.id.header_round);
-        round.setText(getString(R.string.header_round, GameSession.getCurrent().getRound() + 1));
+        round.setText(getString(R.string.header_round, GameSession.getCurrent().getRounds().size()));
 
         ((TextView)findViewById(R.id.header_score)).setText(Html.fromHtml(getString(R.string.score,  GameSession.getCurrent().getMajorityScore(), GameSession.getCurrent().getMinorityScore(), GameSession.getCurrent().getConsecutiveDraws())));
     }

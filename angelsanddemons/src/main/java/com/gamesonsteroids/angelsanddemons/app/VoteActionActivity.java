@@ -12,7 +12,6 @@ import com.gamesonsteroids.angelsanddemons.game.Player;
 import com.gamesonsteroids.angelsanddemons.game.Role;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 
@@ -51,13 +50,15 @@ public class VoteActionActivity extends GameActivity {
     }
 
     public void onVoteClick(View view) {
+        view.setEnabled(false);
+
         Role voteAs = (Role)view.getTag();
 
-        List<Player> members = GameSession.getCurrent().getCurrentTeam().getMembers();
+        List<Player> members = GameSession.getCurrent().getCurrentRound().getTeam();
 
         Player player = members.get(this.currentPlayerIndex);
 
-        GameSession.getCurrent().vote(player, voteAs);
+        GameSession.getCurrent().getCurrentRound().vote(player, voteAs);
 
         int index = this.currentPlayerIndex + 1;
         if (index < members.size()) {
@@ -66,22 +67,8 @@ public class VoteActionActivity extends GameActivity {
             setPlayer();
         } else {
 
-            Map<Player, Role> votes = GameSession.getCurrent().getVotes();
 
-            int minorityVotes = 0;
-            for (Role vote : votes.values()) {
-                if (vote == Role.Minority) {
-                    minorityVotes++;
-                }
-            }
-
-            boolean minorityWon = minorityVotes >= GameRules.getNecessaryMinorityVotes(GameSession.getCurrent().getRound(), GameSession.getCurrent().getPlayers().size());
-
-            if (minorityWon) {
-                GameSession.getCurrent().setMinorityScore(GameSession.getCurrent().getMinorityScore() + 1);
-            } else {
-                GameSession.getCurrent().setMajorityScore(GameSession.getCurrent().getMajorityScore() + 1);
-            }
+            GameSession.getCurrent().finishRound();
 
             if (GameSession.getCurrent().getMajorityScore() == GameRules.PointsToWin || GameSession.getCurrent().getMinorityScore() == GameRules.PointsToWin) {
                 Intent intent = new Intent(this, GameOverActivity.class);
@@ -96,7 +83,7 @@ public class VoteActionActivity extends GameActivity {
 
     private void setPlayer() {
 
-        List<Player> members = GameSession.getCurrent().getCurrentTeam().getMembers();
+        List<Player> members = GameSession.getCurrent().getCurrentRound().getTeam();
 
         Player player = members.get(this.currentPlayerIndex);
 
@@ -109,9 +96,13 @@ public class VoteActionActivity extends GameActivity {
         ImageView vote1 = (ImageView)findViewById(R.id.vote1);
         ImageView vote2 = (ImageView)findViewById(R.id.vote2);
 
+
         ImageView[] votes = new ImageView[] { vote1, vote2 };
 
 
+        for (int i = 0; i < votes.length; i++) {
+            votes[i].setEnabled(true);
+        }
 
         if (player.getRole() == Role.Majority) {
             for (int i = 0; i < votes.length; i++) {

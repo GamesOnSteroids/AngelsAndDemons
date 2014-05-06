@@ -35,7 +35,7 @@ public class GameOverActivity extends GameActivity {
 
     public void onRestartClick(View view) {
 
-        CharSequence[] playerNames = new String[GameSession.getCurrent().getPlayers().size()];
+        CharSequence[] playerNames = new CharSequence[GameSession.getCurrent().getPlayers().size()];
 
         for (int i = 0; i < playerNames.length; i++) {
             playerNames[i] = GameSession.getCurrent().getPlayers().get(i).getName();

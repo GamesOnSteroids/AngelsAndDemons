@@ -2,21 +2,20 @@ package com.gamesonsteroids.angelsanddemons.game;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 public class GameSession {
 
     private static GameSession current;
 
     private List<Player> players;
-    private int round;
-    private Team currentTeam;
-    private Map<Player, Role> votes;
+    private Stack<Round> rounds;
+
     private int seed;
     private Random random;
+
     private int majorityScore;
     private int minorityScore;
     private int consecutiveDraws;
@@ -31,13 +30,16 @@ public class GameSession {
         return current;
     }
 
+    public Round getCurrentRound() {
+        return rounds.peek();
+    }
+
     public List<Player> getPlayers() {
         return players;
     }
 
 
     public void createGame(int playerCount, CharSequence[] defaultPlayerNames) {
-
         this.seed = (int) (new Date().getTime() % Integer.MAX_VALUE);
         this.teamLeaderRotation = 0;
         this.random = new Random(this.seed);
@@ -45,6 +47,7 @@ public class GameSession {
         this.majorityScore = 0;
         this.minorityScore = 0;
         this.players = new ArrayList<Player>();
+        this.rounds = new Stack<Round>();
 
         for (int i = 0; i < playerCount; i++) {
             Player player = new Player();
@@ -66,31 +69,60 @@ public class GameSession {
             }
         }
 
-        startRound(0);
+        nextRound();
     }
 
-    public void startRound(int round) {
-        if (this.round != round) {
-            this.round = round;
-            this.consecutiveDraws = 0;
+
+
+    public void finishRound() {
+        Round round = GameSession.getCurrent().getCurrentRound();
+        round.setFinished(true);
+
+        int necessaryMinorityVotes = GameRules.getNecessaryMinorityVotes(GameSession.getCurrent().getRounds().size(), GameSession.getCurrent().getPlayers().size());
+
+
+        for (Role vote : round.getVotes().values()) {
+            if (vote == Role.Majority) {
+                round.setMajorityVotes(round.getMajorityVotes()+1);
+            } else {
+                round.setMinorityVotes(round.getMinorityVotes()+1);
+            }
         }
+
+        if (round.getMinorityVotes() >= necessaryMinorityVotes) {
+            round.setWinner(Role.Minority);
+        } else {
+            round.setWinner(Role.Majority);
+        }
+
+        if (round.getWinner() == Role.Majority) {
+            majorityScore++;
+        } else {
+            minorityScore++;
+        }
+    }
+
+    public void nextRound() {
+        Round round = new Round();
+
+        this.consecutiveDraws = 0;
         this.teamLeaderRotation++;
 
-        this.currentTeam = new Team();
-        this.currentTeam.setLeader(this.players.get((this.seed + this.teamLeaderRotation) % this.players.size()));
-        this.votes = new HashMap<Player, Role>();
+        round.setLeader(this.players.get((this.seed + this.teamLeaderRotation) % this.players.size()));
 
+        this.rounds.push(round);
     }
 
 
 
-    public void vote(Player player, Role voteAs) {
-        this.votes.put(player, voteAs);
-    }
 
+    public void restartRound() {
+        Round currentRound = this.getCurrentRound();
 
-    public Team getCurrentTeam() {
-        return currentTeam;
+        currentRound.getTeam().clear();
+        currentRound.getVotes().clear();
+
+        currentRound.setLeader(this.players.get((this.seed + this.teamLeaderRotation) % this.players.size()));
     }
 
     public int getConsecutiveDraws() {
@@ -101,16 +133,11 @@ public class GameSession {
         this.consecutiveDraws = consecutiveDraws;
     }
 
-    public int getRound() {
-        return round;
-    }
 
-    public Map<Player, Role> getVotes() {
-        return votes;
-    }
 
     public int getMajorityScore() {
-        return majorityScore; }
+        return majorityScore;
+    }
 
     public int getMinorityScore() {
         return minorityScore; }
@@ -126,4 +153,9 @@ public class GameSession {
     public Random getRandom() {
         return random;
     }
+
+    public Stack<Round> getRounds() {
+        return rounds;
+    }
+
 }

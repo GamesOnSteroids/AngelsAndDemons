@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.gamesonsteroids.angelsanddemons.game.GameRules;
 import com.gamesonsteroids.angelsanddemons.game.GameSession;
 import com.gamesonsteroids.angelsanddemons.game.Player;
-import com.gamesonsteroids.angelsanddemons.game.Team;
 import com.gamesonsteroids.angelsanddemons.widgets.ListAdapter;
 
 
@@ -24,10 +23,8 @@ public class VoteTeamActivity extends GameActivity {
 
         ((TextView)findViewById(R.id.vote_team_text)).setText(getString(R.string.approve_text, (int)Math.floor((float)GameSession.getCurrent().getPlayers().size() / 2) + 1));
 
-        final Team currentTeam = GameSession.getCurrent().getCurrentTeam();
-
         ListView list = (ListView)findViewById(R.id.vote_team_members);
-        list.setAdapter(new ListAdapter<Player>(currentTeam.getMembers(), new ListAdapter.ListViewProvider<Player>() {
+        list.setAdapter(new ListAdapter<Player>(GameSession.getCurrent().getCurrentRound().getTeam(), new ListAdapter.ListViewProvider<Player>() {
             @Override
             public View getView(final int position, final Player item, View convertView) {
                 View view = convertView;
@@ -56,7 +53,7 @@ public class VoteTeamActivity extends GameActivity {
             this.startActivity(intent);
         } else {
 
-            GameSession.getCurrent().startRound(GameSession.getCurrent().getRound());
+            GameSession.getCurrent().restartRound();
 
             Intent intent = new Intent(this, CreateTeamActivity.class);
             this.startActivity(intent);
