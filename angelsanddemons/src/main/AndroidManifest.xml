@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gamesonsteroids.angelsanddemons.app" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.HelpActivity"
+            android:noHistory="true">
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.GameConfigurationActivity"
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.AssignRolesActivity">
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.CreateTeamActivity" >
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.VoteTeamActivity">
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.VoteActionActivity">
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.GameOverActivity" >
+        </activity>
+        <activity
+            android:name="com.gamesonsteroids.angelsanddemons.app.ActionResultActivity">
+        </activity>
+    </application>
+
+</manifest>

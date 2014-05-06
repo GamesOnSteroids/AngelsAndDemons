@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.gamesonsteroids.angelsanddemons.app.VoteTeamActivity">
+
+
+    <include layout="@layout/fragment_game_header"/>
+
+
+    <TextView
+        android:id="@+id/vote_team_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        tools:text="@string/approve_text"/>
+
+    <ListView
+        android:id="@+id/vote_team_members"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1.0">
+    </ListView>
+
+
+    <RelativeLayout
+        android:id="@+id/approve_team_footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="@string/reject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="onRejectClick"/>
+
+        <Button
+            android:text="@string/approve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onApproveClick"/>
+    </RelativeLayout>
+
+</LinearLayout>

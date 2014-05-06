@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Andělé &amp; Démoni</string>
+    <string name="players">Hráčů: %1$d</string>
+    <string name="remaining_team_members">Zbývající místa v týmu:: %1$d</string>
+    <string name="your_turn">Jsi na tahu %1$s!</string>
+    <string name="header_round">Kolo %1$d</string>
+    <string name="result_minority_won"><![CDATA[<font color="#FF1C1C">Démoni</font> vyhráli toto kolo.]]></string>
+    <string name="result_majority_won"><![CDATA[<font color="#398EB6">Andělé</font> vyhráli toto kolo.]]></string>
+    <string name="result_votes"><![CDATA[<font color="#398EB6">Andělé</font>: %1$d <font color="#FF1C1C">Démoni</font>: %2$d]]></string>
+    <string name="you_are_minority"><![CDATA[Jsi <font color="#FF1C1C">Démon</font>!]]></string>
+    <string name="you_are_majority"><![CDATA[Jai <font color="#398EB6">Anděl</font>!]]></string>
+    <string name="are_you_sure">Určitě chceš ukončit hru?</string>
+    <string name="minority_won_game"><![CDATA[<font color="#FF1C1C">Démoni</font> zvítězili!]]></string>
+    <string name="majority_won_game"><![CDATA[<font color="#398EB6">Andělé</font> zvítězili!]]></string>
+    <string name="minority_won_game_draw"><![CDATA[<font color="#FF1C1C">Démoni</font> zvítězili díky nerozhodnosti <font color="#398EB6">Andělů</font>!]]></string>
+    <string name="approve_text">Schval nový tým. Potřebuješ %1$d hlasů.</string>
+    <string name="score"><![CDATA[<font color="#398EB6">%1$s</font> / <font color="#FF1C1C">%2$s</font> / %3$s]]></string>
+    <string name="approve">Schválit</string>
+    <string name="reject">Zamítnout</string>
+    <string name="restart">Znovu</string>
+    <string name="exit">Konec</string>
+    <string name="next">Další</string>
+    <string name="play">Hrát</string>
+    <string name="action_help">\?</string>
+
+    <string name="rules"><![CDATA[
+    <h3><font color="red">Goal</font></h3>
+    <div><b>Angels and Demons</b> is an uninformed majority social game. Players are divided into two teams of <font color="#398EB6">Angels</font> and <font color="#FF1C1C">Demons</font>. <font color="#398EB6">Angels</font> are trying to please God by behaving when sent on earth and <font color="#FF1C1C">Demons</font> are trying to displease him by committing sins on earth. After God is pleased 3 times, <font color="#398EB6">Angels</font> win. When he\'s displeased 3 times, <font color="#FF1C1C">Demons</font> win. <font color="#FF1C1C">Demons</font> will also win if <font color="#398EB6">Angels</font> are unable to organize team 5 times.</div>
+
+    <h3><font color="red">Setup</font></h3>
+    <p>Enter number and names of the players into the game. After that pass phone to each player so that they can see which team they are on - no other player can know that.
+
+    When everyone knows their role. One player tells others:
+    "Everyone closes their eyes"
+    "<font color="#FF1C1C">Demons</font> open their eyes and look at each other"
+    "Everyone opens their eyes"
+
+    </p>
+
+    <h3><font color="red">Gameplay</font></h3>
+    <p>The game consists of two phases, creating team and team being send to earth to act</p>
+
+    <h6><font color="red">Creating team</font></h6>
+    <p>Player that is currently on the turn chooses team from all team member. After that majority of player must agree on team composition.</p>
+
+    <h6><font color="red">Playing</font></h6>
+    <p>Selected team is now send to earth. Phone is passed to everyone on a team and they cast a secret vote on what will they do. <font color="#398EB6">Angels</font> have to help humans but <font color="#FF1C1C">Demons</font> have choice to either help or to hurt them. If everyone on the team helped humans, <font color="#398EB6">Angels</font> gain a point. If at least one (two in 4th round of 7+ players game) of the <font color="#FF1C1C">Demons</font> hurt someone, they\'ll get a point.</p>
+
+    <h3><font color="red">Game Over</font></h3>
+    <p>Game ends when one team has 3 points. Game can also end if <font color="#398EB6">Angels</font> fail to construct team 5 times in a row, in such event <font color="#FF1C1C">Demons</font> win.</p>
+    ]]>
+    </string>
+</resources>
