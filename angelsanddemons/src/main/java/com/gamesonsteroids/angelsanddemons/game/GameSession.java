@@ -10,8 +10,8 @@ public class GameSession {
 
     private static GameSession current;
 
-    private List<Player> players;
-    private Stack<Round> rounds;
+    private List<Player> players = new ArrayList<Player>();
+    private Stack<Round> rounds = new Stack<Round>();
 
     private int seed;
     private Random random;
@@ -20,6 +20,7 @@ public class GameSession {
     private int minorityScore;
     private int consecutiveDraws;
     private int teamLeaderRotation;
+    private boolean gameOver;
 
 
     public static GameSession getCurrent() {
@@ -39,21 +40,24 @@ public class GameSession {
     }
 
 
-    public void createGame(int playerCount, CharSequence[] defaultPlayerNames) {
+    public void createGame() {
         this.seed = (int) (new Date().getTime() % Integer.MAX_VALUE);
         this.teamLeaderRotation = 0;
         this.random = new Random(this.seed);
         this.consecutiveDraws = 0;
         this.majorityScore = 0;
         this.minorityScore = 0;
-        this.players = new ArrayList<Player>();
+        if (this.players.size() == 0) {
+            this.players.add(new Player());
+        }
         this.rounds = new Stack<Round>();
 
-        for (int i = 0; i < playerCount; i++) {
-            Player player = new Player();
-            player.setName(defaultPlayerNames.length > i ? defaultPlayerNames[i] :  GameRules.DefaultNames[i]);
-            players.add(player);
+        for (Player player : players) {
+            player.setRole(null);
         }
+    }
+
+    public void startGame() {
 
         for (Player player : players) {
             player.setRole(Role.Majority);
@@ -76,6 +80,9 @@ public class GameSession {
 
     public void finishRound() {
         Round round = GameSession.getCurrent().getCurrentRound();
+        if (round.isFinished())
+            throw new Error("Round is already finished");
+
         round.setFinished(true);
 
         int necessaryMinorityVotes = GameRules.getNecessaryMinorityVotes(GameSession.getCurrent().getRounds().size(), GameSession.getCurrent().getPlayers().size());
@@ -116,11 +123,14 @@ public class GameSession {
 
 
 
-    public void restartRound() {
+    public void rejectTeam() {
         Round currentRound = this.getCurrentRound();
 
         currentRound.getTeam().clear();
         currentRound.getVotes().clear();
+
+        this.consecutiveDraws++;
+        this.teamLeaderRotation++;
 
         currentRound.setLeader(this.players.get((this.seed + this.teamLeaderRotation) % this.players.size()));
     }
@@ -158,4 +168,15 @@ public class GameSession {
         return rounds;
     }
 
+    public boolean isGameOver() {
+        if (GameSession.getCurrent().getMinorityScore() == GameRules.PointsToWin) {
+            return true;
+        } else if (GameSession.getCurrent().getMajorityScore() == GameRules.PointsToWin) {
+            return true;
+        } else if (GameSession.getCurrent().getConsecutiveDraws() == GameRules.DrawsToWin) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

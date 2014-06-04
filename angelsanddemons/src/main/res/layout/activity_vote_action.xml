@@ -7,6 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:keepScreenOn="true"
     tools:context="com.gamesonsteroids.angelsanddemons.app.VoteActionActivity">
 
 
@@ -25,7 +26,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:src="@drawable/role_unknown"
-        android:onClick="onTurnClick"/>
+        android:onClick="onRevealClick"/>
 
     <LinearLayout
         android:id="@+id/vote_action_choice_layout"
@@ -51,4 +52,11 @@
             android:layout_weight="1.0"
             android:onClick="onVoteClick"/>
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reveal"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

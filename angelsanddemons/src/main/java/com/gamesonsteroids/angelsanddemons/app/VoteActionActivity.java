@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gamesonsteroids.angelsanddemons.game.GameRules;
 import com.gamesonsteroids.angelsanddemons.game.GameSession;
 import com.gamesonsteroids.angelsanddemons.game.Player;
 import com.gamesonsteroids.angelsanddemons.game.Role;
@@ -15,10 +14,10 @@ import java.util.List;
 import java.util.Random;
 
 
-public class VoteActionActivity extends GameActivity {
+public class VoteActionActivity extends AbstractGameActivity {
 
     private int currentPlayerIndex;
-    private boolean hidden;
+    private boolean revealed;
 
 
 
@@ -31,10 +30,10 @@ public class VoteActionActivity extends GameActivity {
 
         if (savedInstanceState != null) {
             currentPlayerIndex = savedInstanceState.getInt("currentPlayerIndex");
-            hidden = savedInstanceState.getBoolean("hidden");
+            revealed = savedInstanceState.getBoolean("revealed");
         } else {
             currentPlayerIndex = 0;
-            hidden = true;
+            revealed = false;
         }
 
         setPlayer();
@@ -44,7 +43,7 @@ public class VoteActionActivity extends GameActivity {
     protected void onSaveInstanceState(Bundle outState) {
 
         outState.putInt("currentPlayerIndex", currentPlayerIndex);
-        outState.putBoolean("hidden", hidden);
+        outState.putBoolean("revealed", revealed);
 
         super.onSaveInstanceState(outState);
     }
@@ -63,20 +62,15 @@ public class VoteActionActivity extends GameActivity {
         int index = this.currentPlayerIndex + 1;
         if (index < members.size()) {
             this.currentPlayerIndex = index;
-            this.hidden = true;
+            this.revealed = false;
             setPlayer();
         } else {
 
 
             GameSession.getCurrent().finishRound();
 
-            if (GameSession.getCurrent().getMajorityScore() == GameRules.PointsToWin || GameSession.getCurrent().getMinorityScore() == GameRules.PointsToWin) {
-                Intent intent = new Intent(this, GameOverActivity.class);
-                this.startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, ActionResultActivity.class);
-                this.startActivity(intent);
-            }
+            Intent intent = new Intent(this, ActionResultActivity.class);
+            this.startActivity(intent);
         }
 
     }
@@ -125,7 +119,7 @@ public class VoteActionActivity extends GameActivity {
 
         }
 
-        if (!hidden) {
+        if (revealed) {
             turnButton.setVisibility(View.GONE);
             choiceLayout.setVisibility(View.VISIBLE);
         } else {
@@ -135,8 +129,8 @@ public class VoteActionActivity extends GameActivity {
     }
 
 
-    public void onTurnClick(View view) {
-        hidden = false;
+    public void onRevealClick(View view) {
+        revealed = true;
 
         View turnButton = findViewById(R.id.vote_action_turn);
         turnButton.setVisibility(View.GONE);

@@ -11,11 +11,12 @@ import android.widget.TextView;
 import com.gamesonsteroids.angelsanddemons.game.GameSession;
 
 
-public abstract class GameActivity extends Activity{
+public abstract class AbstractGameActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
 
@@ -36,10 +37,10 @@ public abstract class GameActivity extends Activity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                        Intent intent = new Intent(AbstractGameActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        GameActivity.this.startActivity(intent);
+                        AbstractGameActivity.this.startActivity(intent);
                     }
 
                 })

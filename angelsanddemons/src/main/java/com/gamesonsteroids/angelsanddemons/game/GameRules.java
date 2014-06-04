@@ -7,22 +7,6 @@ public class GameRules {
     public static int PointsToWin = 3;
 
 
-
-    public static CharSequence[] DefaultNames = new CharSequence[] {
-            "White",
-            "Orange",
-            "Blonde",
-            "Purple",
-            "Blue",
-
-            "Pink",
-            "Red",
-            "Yellow",
-            "Green",
-            "Brown",
-    };
-
-
     public static int getTeamSize(int round, int playerCount) {
 
         switch (playerCount) {

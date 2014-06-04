@@ -12,7 +12,7 @@ import com.gamesonsteroids.angelsanddemons.game.Player;
 import com.gamesonsteroids.angelsanddemons.widgets.ListAdapter;
 
 
-public class VoteTeamActivity extends GameActivity {
+public class VoteTeamActivity extends AbstractGameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class VoteTeamActivity extends GameActivity {
             public View getView(final int position, final Player item, View convertView) {
                 View view = convertView;
                 if (view == null) {
-                    view = new TextView(VoteTeamActivity.this);
+                    view = getLayoutInflater().inflate(R.layout.fragment_textview, null);
                 }
                 ((TextView)view).setText(item.getName());
 
@@ -39,21 +39,20 @@ public class VoteTeamActivity extends GameActivity {
     }
 
     public void onApproveClick(View view) {
-
+        view.setEnabled(false);
         Intent intent = new Intent(this, VoteActionActivity.class);
         this.startActivity(intent);
 
     }
 
     public void onRejectClick(View view) {
+        view.setEnabled(false);
+        GameSession.getCurrent().rejectTeam();
 
-        GameSession.getCurrent().setConsecutiveDraws(GameSession.getCurrent().getConsecutiveDraws() + 1);
         if (GameSession.getCurrent().getConsecutiveDraws() == GameRules.DrawsToWin) {
-            Intent intent = new Intent(this, GameOverActivity.class);
+            Intent intent = new Intent(this, ActionResultActivity.class);
             this.startActivity(intent);
         } else {
-
-            GameSession.getCurrent().restartRound();
 
             Intent intent = new Intent(this, CreateTeamActivity.class);
             this.startActivity(intent);

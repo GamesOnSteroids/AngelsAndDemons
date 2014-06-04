@@ -16,7 +16,7 @@ import com.gamesonsteroids.angelsanddemons.game.Round;
 import com.gamesonsteroids.angelsanddemons.widgets.ListAdapter;
 
 
-public class CreateTeamActivity extends GameActivity {
+public class CreateTeamActivity extends AbstractGameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,32 +37,34 @@ public class CreateTeamActivity extends GameActivity {
             public View getView(final int position, final Player item, View convertView) {
                 View view = convertView;
                 if (view == null) {
-                    view = new CheckBox(CreateTeamActivity.this);
+                    view = getLayoutInflater().inflate(R.layout.fragment_checkbox, null);
+                    assert view != null;
+                    ((CheckBox)view).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                            Player checkedPlayer = (Player)buttonView.getTag();
+
+                            final Round currentRound = GameSession.getCurrent().getCurrentRound();
+
+                            if (isChecked) {
+                                if (!currentRound.getTeam().contains(checkedPlayer)) {
+                                    currentRound.getTeam().add(checkedPlayer);
+                                }
+                            } else {
+                                currentRound.getTeam().remove(checkedPlayer);
+                            }
+
+                            checkTeamSize();
+                        }
+                    });
                 }
 
                 final CheckBox playerCheckBox = ((CheckBox)view);
-                playerCheckBox.setOnCheckedChangeListener(null);
+                playerCheckBox.setTag(item);
                 playerCheckBox.setChecked(GameSession.getCurrent().getCurrentRound().getTeam().contains(item));
                 playerCheckBox.setText(item.getName());
-                playerCheckBox.setTag(item);
-                playerCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
-                        Player checkedPlayer = (Player)playerCheckBox.getTag();
-
-                        final Round currentRound = GameSession.getCurrent().getCurrentRound();
-
-                        if (isChecked) {
-                            currentRound.getTeam().add(checkedPlayer);
-                        } else {
-                            currentRound.getTeam().remove(checkedPlayer);
-                        }
-
-                        checkTeamSize();
-                    }
-                });
                 int maxTeamSize = GameRules.getTeamSize(GameSession.getCurrent().getRounds().size(), GameSession.getCurrent().getPlayers().size());
 
 
@@ -96,7 +98,7 @@ public class CreateTeamActivity extends GameActivity {
         final Button createTeam = (Button)findViewById(R.id.create_team_button);
 
         if (maxTeamSize == GameSession.getCurrent().getCurrentRound().getTeam().size()) {
-            for (int i=0; i< list.getChildCount(); ++i) {
+            for (int i=0; i < list.getChildCount(); ++i) {
                 CheckBox childCheckBox = (CheckBox)list.getChildAt(i);
 
                 if (!childCheckBox.isChecked()) {
@@ -106,7 +108,7 @@ public class CreateTeamActivity extends GameActivity {
             createTeam.setEnabled(true);
 
         } else {
-            for (int i=0; i< list.getChildCount(); ++i) {
+            for (int i=0; i < list.getChildCount(); ++i) {
                 CheckBox childCheckBox = (CheckBox)list.getChildAt(i);
                 childCheckBox.setEnabled(true);
             }

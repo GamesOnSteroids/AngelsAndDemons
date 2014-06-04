@@ -25,20 +25,15 @@
     <string name="play">Play</string>
     <string name="action_help">\?</string>
     <string name="game_over">Game Over</string>
+    <string name="minority_players">Demons are: <font color="#FF1C1C">%s</font></string>
+    <string name="add">Add</string>
 
     <string name="rules"><![CDATA[
     <h3><font color="red">Goal</font></h3>
-    <div><b>Angels and Demons</b> is an uninformed majority social game. Players are divided into two teams of <font color="#398EB6">Angels</font> and <font color="#FF1C1C">Demons</font>. <font color="#398EB6">Angels</font> are trying to please God by behaving when sent on earth and <font color="#FF1C1C">Demons</font> are trying to displease him by committing sins on earth. After God is pleased 3 times, <font color="#398EB6">Angels</font> win. When he\'s displeased 3 times, <font color="#FF1C1C">Demons</font> win. <font color="#FF1C1C">Demons</font> will also win if <font color="#398EB6">Angels</font> are unable to organize team 5 times.</div>
+    <div><b><font color="#398EB6">Angels</font> & <font color="#FF1C1C">Demons</font></b> a game of strategy, measuring your ability to persuade others and to reveal lies. Players are divided into two teams of <font color="#398EB6">Angels</font> and <font color="#FF1C1C">Demons</font>. <font color="#398EB6">Angels</font> are trying to please God by behaving when sent on earth and <font color="#FF1C1C">Demons</font> are trying to displease him by committing sins on earth. After God is pleased 3 times, <font color="#398EB6">Angels</font> win. When he\'s displeased 3 times, <font color="#FF1C1C">Demons</font> win. <font color="#FF1C1C">Demons</font> will also win if <font color="#398EB6">Angels</font> are unable to organize team 5 times.</div>
 
     <h3><font color="red">Setup</font></h3>
-    <p>Enter number and names of the players into the game. After that pass phone to each player so that they can see which team they are on - no other player can know that.
-
-    When everyone knows their role. One player tells others:
-    "Everyone closes their eyes"
-    "<font color="#FF1C1C">Demons</font> open their eyes and look at each other"
-    "Everyone opens their eyes"
-
-    </p>
+    <p>Enter number and names of the players into the game. After that pass the phone to each player so that they can see which team they are on - no other player can know that. Swipe your card to reaveal your role.</p>
 
     <h3><font color="red">Gameplay</font></h3>
     <p>The game consists of two phases, creating team and team being send to earth to act</p>

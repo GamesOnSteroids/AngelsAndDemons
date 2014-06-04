@@ -20,14 +20,11 @@
         />
 
     <Button
-        android:id="@+id/buttonContinue"
+        android:id="@+id/game_configuration_button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onStartGameClick" />
-
-
-
+        android:onClick="onStartGameClick"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
